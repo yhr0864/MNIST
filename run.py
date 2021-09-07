@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[3]:
-
-
 import torch
 import cv2
 import random
@@ -20,16 +17,10 @@ from model.mydataset import Data
 from model.CNN import CNN
 
 
-# In[5]:
-
-
-
-
 device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 epochs = 2
 
 datapath = r'C:\Users\Myth\Desktop\PYTHON\netwerk\MNIST\Image\imgs_train\train.txt'
-
 
 train_data=Data(datatxt=datapath, transform=T.ToTensor())
 
@@ -46,7 +37,6 @@ model = CNN().to(device)
 optimizer = Adam(model.parameters(), lr=1e-5)
 
 for epoch in range(epochs):
-
 
     # Training
     with tqdm(total=len(train_loader)) as train_bar:
@@ -88,66 +78,5 @@ for epoch in range(epochs):
     acc = correct / len_val * 100
     print("test loss: {}, accuracy: {}".format(total_loss, acc))
 
-
+# save the model
 torch.save(model.state_dict(), 'mnist_cnn.pt')
-
-
-
-
-
-
-# In[ ]:
-
-
-from PIL import Image
-
-path = r'C:\Users\Myth\Desktop\PYTHON\netwerk\MNIST\Image\imgs_train\train\0_2539.png'
-img = Image.open(path).convert('L')
-#img = cv2.imread(path,0)
-#img = torch.from_numpy(img)
-
-
-#img = img.reshape([1,1,28,28])
-#print(img.shape)
-
-image_to_tensor = T.ToTensor()
-img = image_to_tensor(img)
-print(img.shape)
-
-img = torch.unsqueeze(img,0)
-print(img.shape)
-img2 = torch.squeeze(img,1)
-print(img2.shape)
-
-
-# In[ ]:
-
-
-model = CNN()
-pred = model(img)
-pred
-
-
-# In[ ]:
-
-
-train_data=Data(datatxt=datapath, transform=T.ToTensor())
-
-
-# In[ ]:
-
-
-len(train_data)
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
