@@ -1,1 +1,1 @@
-This is CNN model that is used for training.
+training the MNIST dataset with CNN
